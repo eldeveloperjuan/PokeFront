@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-
 import { pokemons } from '../pokemon';
+import { getPokemons } from '../util'
+
 
 @Component({
   selector: 'app-product-list',
@@ -8,7 +9,7 @@ import { pokemons } from '../pokemon';
   styleUrls: ['./pokemon-list.component.css']
 })
 export class PokeFrontComponent {
-  pokemons = pokemons;
+  pokemons = getPokemons();
 }
 
 
