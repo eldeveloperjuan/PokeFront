@@ -5,7 +5,7 @@ import { pokemons } from '../pokemon';
 @Component({
   selector: 'app-product-list',
   templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokmeon-list.component.css']
+  styleUrls: ['./pokemon-list.component.css']
 })
 export class PokeFrontComponent {
   pokemons = pokemons;
