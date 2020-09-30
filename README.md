@@ -1,3 +1,3 @@
-# angular-b8k8em
+PokeFront
 
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/angular-b8k8em)
+Frontend para los datos obtenidos en la API RESTful PokeApi.
