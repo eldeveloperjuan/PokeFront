@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { pokemons } from '../pokemon';
 import { getPokemons } from '../util';
 
 
@@ -10,6 +9,7 @@ import { getPokemons } from '../util';
 })
 export class PokeFrontComponent {
   pokemons = getPokemons();
+  
 }
 
 
