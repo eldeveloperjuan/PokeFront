@@ -1,0 +1,70 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+
+import { Poke } from './pokemon';
+import { MessageService } from './message.service';
+
+
+@Injectable({ providedIn: 'root' })
+export class PokeService {
+
+  private pokeesUrl = 'https://pokeapi.co/api/v2/pokemon';  // URL to web api
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
+  constructor(
+    private http: HttpClient,
+    private messageService: MessageService) { }
+
+  /** GET pokees from the server */
+  getPokes(): Observable<Poke[]> {
+    return this.http.get<Poke[]>(this.pokeesUrl + '?limit=50')
+      .pipe(
+        tap(_ => this.log('fetched pokees')),
+        catchError(this.handleError<Poke[]>('getpokees', []))
+      );
+  }
+
+  /** GET poke by id. Return `undefined` when id not found */
+  getpokeNo404<Data>(id: number): Observable<Poke> {
+    const url = `${this.pokeesUrl}/?id=${id}`;
+    return this.http.get<Poke[]>(url)
+      .pipe(
+        map(pokees => pokees[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} poke id=${id}`);
+        }),
+        catchError(this.handleError<Poke>(`getpoke id=${id}`))
+      );
+  }
+
+  /* GET pokees whose name contains search term */
+  searchpokees(term: string): Observable<Poke[]> {
+    if (!term.trim()) {
+      // if not search term, return empty poke array.
+      return of([]);
+    }
+    return this.http.get<Poke[]>(`${this.pokeesUrl}/?name=${term}`).pipe(
+      tap(x => x.length ?
+         this.log(`found pokees matching "${term}"`) :
+         this.log(`no pokees matching "${term}"`)),
+      catchError(this.handleError<Poke[]>('searchpokees', []))
+    );
+  }
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error); 
+      this.log(`${operation} failed: ${error.message}`);
+      return of(result as T);
+    };
+  }
+  private log(message: string) {
+    this.messageService.add(`pokeService: ${message}`);
+  }
+}

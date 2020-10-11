@@ -113,7 +113,7 @@ app-top-bar {
   padding: 16px;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 

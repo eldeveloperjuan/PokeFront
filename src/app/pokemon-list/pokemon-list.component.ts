@@ -1,15 +1,31 @@
 import { Component } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { getPokemons } from '../util';
 
-
+import { Poke } from '../pokemon';
+import { PokeService } from '../poke.service';
 @Component({
+
   selector: 'app-product-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css']
 })
 export class PokeFrontComponent {
-  pokemons = getPokemons();
-  
+  pokes: Poke[];
+
+  constructor(private pokeService: PokeService) { }
+
+  ngOnInit() {
+    this.getPokes();
+  }
+
+  getPokes(): void {
+    this.pokeService.getPokes()
+    .subscribe(pokeList => {
+      console.log(pokeList)
+      this.pokes = pokeList});
+  }
 }
 
 

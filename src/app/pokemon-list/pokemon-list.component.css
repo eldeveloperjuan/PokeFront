@@ -1,7 +1,18 @@
+.pokes {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+div.poke {
+    background: lightgray;
+    margin: 10px;
+    padding: 10px;
+    text-transform: uppercase;
+    text-align: center;
+    border: solid #1976d2 2px;
+    color: #1976d2;
+    font-size: 1em;    
+}
