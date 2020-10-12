@@ -1,11 +1,41 @@
 <div *ngIf="poke">
-  <h2>{{poke.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{poke.id}}</div>
-  <div>
-    <label>name:
-      <input [(ngModel)]="poke.name" placeholder="name"/>
-    </label>
-  </div>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
-</div>
+  <h2>INFORMACIÓN: <b>{{poke.name | uppercase}}</b></h2>
+	<div class="flex-container">
+		<div class="flex-item">
+			<h3>Id: {{poke.id}}</h3>
+			<h3>Especie: {{poke.species && poke.species.name}}</h3>
+			<h3>Habilidades: </h3>
+			<ul>
+				<div *ngFor="let ability of poke.abilities">
+					<li>{{ability.ability.name}}</li>
+				</div>
+			</ul>
+			<h3>Formas: </h3>
+			<ul>
+				<div *ngFor="let form of poke.forms">
+					<li>{{form.name}}</li>
+				</div>
+			</ul>
+			<h3>Estadisticas: </h3>
+			<ul>
+				<div *ngFor="let stat of poke.stats">
+					<li>{{stat.stat.name}} : {{ stat.base_stat }}%</li>
+				</div>
+			</ul>
+		</div>
+		<div class="flex-item">
+			<h3>Sprites</h3>
+			<div>
+				<img *ngIf="poke.sprites.front_default" src="{{poke.sprites.front_default}}"/>
+				<img *ngIf="poke.sprites.back_default" src="{{poke.sprites.back_default}}"/>
+				<img *ngIf="poke.sprites.front_shiny" src="{{poke.sprites.front_shiny}}"/>
+				<img *ngIf="poke.sprites.front_shiny" src="{{poke.sprites.front_shiny}}"/>
+				<img *ngIf="poke.sprites.front_female" src="{{poke.sprites.front_female}}"/>
+				<img *ngIf="poke.sprites.front_shiny_femal" src="{{poke.sprites.front_shiny_femal}}"/>
+      </div>
+      <div class="button-container">
+				<button (click)="goBack()">Regresar</button>
+        </div>
+			</div>
+		</div>
+	</div>

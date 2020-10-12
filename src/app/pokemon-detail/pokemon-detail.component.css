@@ -14,11 +14,14 @@ input {
 button {
   margin-top: 20px;
   font-family: Arial;
-  background-color: #eee;
-  border: none;
+  background-color: white;
+  color: black;
+  border: 2px #1976d2 solid;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+  text-transform: uppercase;
 }
 button:hover {
   background-color: #cfd8dc;
@@ -27,4 +30,24 @@ button:disabled {
   background-color: #eee;
   color: #ccc;
   cursor: auto;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: center;
+}
+
+img {
+  width:120px;
+}
+
+h2 {
+  text-align: center;
 }

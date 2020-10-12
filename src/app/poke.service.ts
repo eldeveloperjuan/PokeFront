@@ -37,8 +37,7 @@ export class PokeService {
       .pipe(
         tap(poke => {
           const outcome = poke ? `fetched` : `did not find`;
-          this.log(`${outcome} poke id=${id}`);
-          console.log(`${outcome} poke id=${id}`);
+          console.log(poke);
         }),
         catchError(this.handleError<Poke>(`getpoke id=${id}`))
       );
