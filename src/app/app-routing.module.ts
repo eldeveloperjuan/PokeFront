@@ -9,7 +9,7 @@ const routes: Routes = [
 
   //{ path: 'dashboard', component: DashboardComponent },
   { path: 'detail/:id', component: PokeDetailComponent },
-  { path: '', component: PokeFrontComponent }
+  { path: ':page', component: PokeFrontComponent }
 ];
 
 @NgModule({

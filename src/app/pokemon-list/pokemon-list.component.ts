@@ -1,33 +1,74 @@
-import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
-import { getPokemons } from '../util';
+import { getPokemons } from "../util";
 
-import { Poke } from '../pokemon';
-import { PokeService } from '../poke.service';
+import { Poke } from "../pokemon";
+import { ActivatedRoute, Router } from "@angular/router";
+import { PokeService } from "../poke.service";
+import { Location } from "@angular/common";
+
 @Component({
-
-  selector: 'app-pokemon-list',
-  templateUrl: './pokemon-list.component.html',
-  styleUrls: ['./pokemon-list.component.css']
+  selector: "app-pokemon-list",
+  templateUrl: "./pokemon-list.component.html",
+  styleUrls: ["./pokemon-list.component.css"]
 })
 export class PokeFrontComponent {
   pokes: Poke[];
+  showPrevPage: boolean;
+  showNextPage: boolean;
 
-  constructor(private pokeService: PokeService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private pokeService: PokeService,
+    private location: Location,
+    private router : Router
+  ) {}
 
   ngOnInit() {
     this.getPokes();
   }
 
   getPokes(): void {
-    this.pokeService.getPokes()
-    .subscribe(pokeList => {
-      console.log(pokeList)
-      this.pokes = pokeList});
-  }
-}
+    console.log('getPokes')
+    this.showNextPage = true;
+    this.showPrevPage = true;
 
+    const page = +this.route.snapshot.paramMap.get("page");
+    this.pokeService.getPokes(page).subscribe(pokeList => {
+      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0
+      this.showNextPage = pokeList.next && pokeList.next.length > 0
+      console.log(pokeList);
+      this.pokes = pokeList;
+    });
+  }
+
+  nextPage() {
+    const page = +this.route.snapshot.paramMap.get("page");
+    const nextPage = page + 1;
+      this.pokeService.getPokes(nextPage).subscribe(pokeList => {
+      console.log(pokeList);
+      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0     
+      this.showNextPage = pokeList.next && pokeList.next.length > 0    
+      this.pokes = pokeList;
+      this.router.navigateByUrl("/" + nextPage);
+    });
+  }
+
+    prevPage() {
+    const page = +this.route.snapshot.paramMap.get("page");
+    const nextPage = page - 1;
+      this.pokeService.getPokes(nextPage).subscribe(pokeList => {
+      console.log(pokeList);
+      this.pokes = pokeList;
+      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0
+      this.showNextPage = pokeList.next && pokeList.next.length > 0
+      console.log(this.showPrevPage)      
+      this.router.navigateByUrl("/" + nextPage);
+    });
+  }
+
+}
 
 /*
 Copyright Google LLC. All Rights Reserved.

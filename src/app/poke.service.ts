@@ -22,8 +22,12 @@ export class PokeService {
     private messageService: MessageService) { }
 
   /** GET pokees from the server */
-  getPokes(): Observable<Poke[]> {
-    return this.http.get<Poke[]>(this.pokeesUrl + '?limit=50')
+  getPokes<Data>(page: number): Observable<Poke[]> {
+    console.log('page', page)
+    const pageNumber = page || 0
+    const offset = 50 * pageNumber
+    console.log('OFFSET', offset)
+    return this.http.get<Poke[]>(this.pokeesUrl + '?limit=50&offset=' + offset)
       .pipe(
         tap(_ => this.log('fetched pokees')),
         catchError(this.handleError<Poke[]>('getpokees', []))
