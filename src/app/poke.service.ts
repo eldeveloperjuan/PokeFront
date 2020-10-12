@@ -31,14 +31,14 @@ export class PokeService {
   }
 
   /** GET poke by id. Return `undefined` when id not found */
-  getpokeNo404<Data>(id: number): Observable<Poke> {
-    const url = `${this.pokeesUrl}/?id=${id}`;
-    return this.http.get<Poke[]>(url)
+  getPoke<Data>(id: number): Observable<Poke> {
+    const url = `${this.pokeesUrl}/${id}`;
+    return this.http.get<Poke>(url)
       .pipe(
-        map(pokees => pokees[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
+        tap(poke => {
+          const outcome = poke ? `fetched` : `did not find`;
           this.log(`${outcome} poke id=${id}`);
+          console.log(`${outcome} poke id=${id}`);
         }),
         catchError(this.handleError<Poke>(`getpoke id=${id}`))
       );

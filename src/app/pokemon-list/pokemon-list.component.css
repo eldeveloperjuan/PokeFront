@@ -5,8 +5,7 @@
     align-items: center;
 }
 
-
-div.poke {
+.poke {
     background: lightgray;
     margin: 10px;
     padding: 10px;
@@ -15,4 +14,9 @@ div.poke {
     border: solid #1976d2 2px;
     color: #1976d2;
     font-size: 1em;    
+}
+
+.poke:hover {
+    background: #1976d2;
+    color: lightgray;
 }

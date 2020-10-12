@@ -6,12 +6,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { PokeFrontComponent } from './pokemon-list/pokemon-list.component';
+import { FormsModule } from '@angular/forms';
+import { PokeDetailComponent } from './pokemon-detail/pokemon-detail.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FormsModule,
+    AppRoutingModule,
     RouterModule.forRoot([
       { path: '', component: PokeFrontComponent },
     ])
@@ -19,7 +24,8 @@ import { PokeFrontComponent } from './pokemon-list/pokemon-list.component';
   declarations: [
     AppComponent,
     TopBarComponent,
-    PokeFrontComponent
+    PokeFrontComponent,
+    PokeDetailComponent
   ],
   bootstrap: [ AppComponent ]
 })

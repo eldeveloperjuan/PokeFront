@@ -7,7 +7,7 @@ import { Poke } from '../pokemon';
 import { PokeService } from '../poke.service';
 @Component({
 
-  selector: 'app-product-list',
+  selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css']
 })

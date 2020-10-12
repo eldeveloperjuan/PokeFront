@@ -1,9 +1,11 @@
 <h2>Listado obtenido de <a href="https://pokeapi.co">PokeApi.co</a> </h2>
 
 <div class="pokes" *ngIf="pokes && pokes.results">
-  <div class="poke" *ngFor="let poke of pokes.results">
-    <a routerLink="/detail/{{poke.id}}">
+  <div *ngFor="let poke of pokes.results">
+    <a routerLink="/detail/{{ poke.url | slice:34:-1 }}">
+    <div class="poke">
       <div class="" class="badge">{{poke.id}}</div> {{poke.name}}
+  </div>
   </a>
 </div>
 
