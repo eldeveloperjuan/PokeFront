@@ -23,6 +23,11 @@ button {
   font-size: 16px;
   text-transform: uppercase;
 }
+
+li, h3 {
+    text-transform: capitalize;
+}
+
 button:hover {
   background-color: #cfd8dc;
 }

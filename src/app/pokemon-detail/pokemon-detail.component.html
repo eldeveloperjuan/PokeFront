@@ -4,19 +4,19 @@
 		<div class="flex-item">
 			<h3>Id: {{poke.id}}</h3>
 			<h3>Especie: {{poke.species && poke.species.name}}</h3>
-			<h3>Habilidades: </h3>
+			<h3>Habilidades</h3>
 			<ul>
 				<div *ngFor="let ability of poke.abilities">
 					<li>{{ability.ability.name}}</li>
 				</div>
 			</ul>
-			<h3>Formas: </h3>
+			<h3>Formas</h3>
 			<ul>
 				<div *ngFor="let form of poke.forms">
 					<li>{{form.name}}</li>
 				</div>
 			</ul>
-			<h3>Estadisticas: </h3>
+			<h3>Estadisticas</h3>
 			<ul>
 				<div *ngFor="let stat of poke.stats">
 					<li>{{stat.stat.name}} : {{ stat.base_stat }}%</li>
