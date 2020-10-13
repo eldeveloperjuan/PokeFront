@@ -1,8 +1,4 @@
 import { Component } from "@angular/core";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-
-import { getPokemons } from "../util";
-
 import { Poke } from "../pokemon";
 import { ActivatedRoute, Router } from "@angular/router";
 import { PokeService } from "../poke.service";
@@ -17,28 +13,27 @@ export class PokeFrontComponent {
   pokes: Poke[];
   showPrevPage: boolean;
   showNextPage: boolean;
+  search: string;
 
   constructor(
     private route: ActivatedRoute,
     private pokeService: PokeService,
     private location: Location,
-    private router : Router
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.getPokes();
+    this.search = "";
   }
 
   getPokes(): void {
-    console.log('getPokes')
     this.showNextPage = true;
     this.showPrevPage = true;
-
     const page = +this.route.snapshot.paramMap.get("page");
     this.pokeService.getPokes(page).subscribe(pokeList => {
-      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0
-      this.showNextPage = pokeList.next && pokeList.next.length > 0
-      console.log(pokeList);
+      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0;
+      this.showNextPage = pokeList.next && pokeList.next.length > 0;
       this.pokes = pokeList;
     });
   }
@@ -46,32 +41,32 @@ export class PokeFrontComponent {
   nextPage() {
     const page = +this.route.snapshot.paramMap.get("page");
     const nextPage = page + 1;
-      this.pokeService.getPokes(nextPage).subscribe(pokeList => {
-      console.log(pokeList);
-      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0     
-      this.showNextPage = pokeList.next && pokeList.next.length > 0    
+    this.pokeService.getPokes(nextPage).subscribe(pokeList => {
+      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0;
+      this.showNextPage = pokeList.next && pokeList.next.length > 0;
       this.pokes = pokeList;
       this.router.navigateByUrl("/" + nextPage);
     });
   }
 
-    prevPage() {
+  prevPage() {
     const page = +this.route.snapshot.paramMap.get("page");
     const nextPage = page - 1;
-      this.pokeService.getPokes(nextPage).subscribe(pokeList => {
-      console.log(pokeList);
+    this.pokeService.getPokes(nextPage).subscribe(pokeList => {
       this.pokes = pokeList;
-      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0
-      this.showNextPage = pokeList.next && pokeList.next.length > 0
-      console.log(this.showPrevPage)      
+      this.showPrevPage = pokeList.previous && pokeList.previous.length > 0;
+      this.showNextPage = pokeList.next && pokeList.next.length > 0;
       this.router.navigateByUrl("/" + nextPage);
     });
   }
 
-}
+  searchChange(searchText) {
+    const pokeId = this.pokeService.searchPoke(searchText);
+    if (pokeId > 0) {
+      console.log('inside')
+      this.router.navigateByUrl("/detail/" + pokeId);
+    }
 
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/
+    console.log(pokeId);
+  }
+}
