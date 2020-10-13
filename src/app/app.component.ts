@@ -1,3 +1,10 @@
+/*
+Software Poke Front
+Creado para materia FrontEnd Poli Virtual
+
+Basado en https://angular.io/tutorial 
+*/
+
 import { Component } from '@angular/core';
 
 @Component({
